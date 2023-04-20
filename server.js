@@ -15,6 +15,17 @@ http.createServer((request, response) => {
     // results from request set to q
   let addr = request.url
   let q = url.parse(addr, true)
+  let filePath = ''
+
+  // populate log with recent requests
+  // appendFile with file name, new info to be appended and error-handling
+  fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', (err) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('Added to log.')
+    }
+  })
 
   // declare file path; __dirname is module-specific variable providing path to current directory 
   if (q.pathname.includes('documentation')) {
