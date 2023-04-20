@@ -12,6 +12,8 @@ const app = express()
 // 'log.txt' is created in root directory
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 
+// server documentation.html from public folder
+app.use(express.static('public'))
 // designating that morgan should be called with every req
   // no need for console.logging in each request
 app.use(morgan('combined', {stream: accessLogStream}))
@@ -27,6 +29,13 @@ app.get('/', (req, res) => {
 // __dirname as module-specific variable providing path to current directory
 app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', {root: __dirname})
+})
+
+
+// error handling 
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('something broke!')
 })
 
 
