@@ -1,9 +1,13 @@
 // import express
 const express = require('express')
+// import middleware Morgan to log info for requests
+const morgan = require('morgan')
 // set express to variable app
 const app = express()
 
-
+// designating that morgan should be called with every req
+  // no need for console.logging in each request
+app.use(morgan('common'))
 
 // GET requests
   // app.METHOD(PATH, HANDLER)
