@@ -38,6 +38,7 @@ passport.use(new LocalStrategy({
   // authenticate users based on JWT submitted alongside request
   // JWT extracted from HTTP req header --> BEARER TOKEN
   // needs secret key to verify signature of JWT
+  
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: 'your_jwt_secret'
