@@ -23,7 +23,7 @@ app.use(express.static('public'))
 app.use(morgan('combined', {stream: accessLogStream}))
 app.use(bodyParser.json())
 
-// TODO: DATA HERE
+// DATA
 let users = [
   {
     id: '1',
@@ -136,19 +136,87 @@ let movies = [
 ];
 
 
-// GET requests
+/* 
+  GET requests 
+*/
   // app.METHOD(PATH, HANDLER)
   // app as instance of express()
   // express constructs header with misc info
 app.get('/', (req, res) => {
+  let responseText = "Welcome to the KFlix API."
+  reponseText += '<small>Requested at: ' + req.requestTime + '</small>'
   res.send('Welcome to this project.')
 })
 
 // __dirname as module-specific variable providing path to current directory
-app.get('/documentation', (req, res) => {
+/* app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', {root: __dirname})
+}) */
+
+// gets list of data about ALL movies
+app.get('/movies', (req, res) => {
+  res.json(movies)
 })
 
+// gets data about a single movie, by title
+app.get('/movies/:title', (req, res) => {
+  res.json(movies.find((movie) => {
+    return movie.title === req.params.title
+  }))
+})
+
+
+/* 
+  POST requests 
+*/
+
+// adds data for a new user
+app.post('/users', (req, res) => {
+  let newUser = req.body
+
+  if (!newUser.name) {
+    const message = "Missing name in request body"
+    res.status(400).send(message)
+  } else {
+    // add randomly generated id to user
+    newUser.id = uuid.v4()
+    // push the new user to the users array
+    users.push(newUser)
+    res.status(201).send(newUser)
+  }
+})
+
+/* 
+  DELETE requests 
+*/
+
+// delete a user from our list by ID; deregister
+app.delete('/users/:id', (req, res) => {
+  // does the user exist? true or false
+  let user = users.find((user) => {
+    return user.id === req.params.id
+  })
+
+  if (user) {
+    users = users.filter((obj) => {
+      return obj.id !== req.params.id
+    })
+    res.status(201).send('User ' + req.params.id + ' has successfully deregistered.')
+  }
+})
+
+/* 
+  PUT requests 
+*/
+
+// update user information
+app.put('/users/:id', (req, res) => {
+  let user = users.find((user) => {
+    return user.name === req.params.id
+  })
+
+  // TODO: Code to execute on information change
+})
 
 // error handling 
 app.use((err, req, res, next) => {
