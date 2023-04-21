@@ -165,6 +165,19 @@ app.get('/movies/:title', (req, res) => {
   }))
 })
 
+// gets data about a single genre
+app.get('/movies/:genre', (req, res) => {
+  res.json(movies.find((movie) => {
+    return movie.genre === req.params.genre
+  }))
+})
+
+// gets data about a director
+app.get('/movies/:director', (req, res) => {
+  res.json(movies.find((movie) => {
+    return movie.director === req.params.director
+  }))
+})
 
 /* 
   POST requests 
@@ -183,6 +196,21 @@ app.post('/users', (req, res) => {
     // push the new user to the users array
     users.push(newUser)
     res.status(201).send(newUser)
+  }
+})
+
+// adds favorite movie of user
+app.post('/users/:Username/movies/:title', (req, res) => {
+  let favMovie = req.body
+
+  if (!favMovie.title) {
+    const message = "Missing title in request body"
+    res.status(400).send(message)
+  } else {
+    favMovie.id = uuid.v4() 
+    // TODO: create favorite movie array
+    favMovies.push(favMovie)
+    res.status(201).send(favMovie)
   }
 })
 
