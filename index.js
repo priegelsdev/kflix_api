@@ -33,6 +33,11 @@ app.use(express.static('public'))
 app.use(morgan('combined', {stream: accessLogStream}))
 app.use(bodyParser.json())
 
+// calling passport and authorization
+let auth = require('./auth')(app) // app argument so express is available in auth file as well
+const passport = require('passport')
+require('./passport')
+
 // DATA
 let users = [
   {
