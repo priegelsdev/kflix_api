@@ -9,6 +9,16 @@ const uuid = require('uuid')
 // import node modules fs and path
 const fs = require('fs')
   path = require('path')
+// import mongoose and models from models.js
+const mongoose = require('mongoose')
+const Models = require('./models.js')
+
+const Movies = Models.Movie
+const Users = Models.User
+const Directors = Models.Director
+const Genres = Models.Genre
+
+mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true})
 
 // set express to variable app
 const app = express()
