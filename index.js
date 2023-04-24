@@ -172,13 +172,37 @@ let movies = [
 app.get('/', (req, res) => {
   let responseText = "Welcome to the KFlix API."
   responseText += '<small>Requested at: ' + req.requestTime + '</small>'
-  res.send('Welcome to this project.')
+  res.send('Welcome to the KFlix API.')
 })
 
 // __dirname as module-specific variable providing path to current directory
 /* app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', {root: __dirname})
 }) */
+
+// gets list of data about ALL users
+app.get('/users', (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(200).json(users)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
+})
+
+// gets info about specific user
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      res.json(user)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
+})
 
 // gets list of data about ALL movies
 app.get('/movies', (req, res) => {
