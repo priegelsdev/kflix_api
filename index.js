@@ -162,7 +162,7 @@ let movies = [
   // express constructs header with misc info
 app.get('/', (req, res) => {
   let responseText = "Welcome to the KFlix API."
-  reponseText += '<small>Requested at: ' + req.requestTime + '</small>'
+  responseText += '<small>Requested at: ' + req.requestTime + '</small>'
   res.send('Welcome to this project.')
 })
 
