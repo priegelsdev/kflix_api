@@ -4,11 +4,16 @@ const express = require('express')
 const morgan = require('morgan')
 // import middleware bodyparser to extract body portion of incoming request stream so it's easier to interface with
 const bodyParser = require('body-parser')
+// import dotenv
+const dotenv = require('dotenv')
 // import uuid 
 const uuid = require('uuid')
 // import node modules fs and path
 const fs = require('fs')
   path = require('path')
+
+dotenv.config()
+
 // import mongoose and models from models.js
 const mongoose = require('mongoose')
 const Models = require('./models.js')
