@@ -219,17 +219,29 @@ app.get('/movies', (req, res) => {
 })
 
 // gets data about a single movie, by title
-app.get('/movies/:title', (req, res) => {
-  res.json(movies.find((movie) => {
-    return movie.title === req.params.title
-  }))
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .populate('Director')
+    .populate('Genre')
+    .then((movie) => {
+      res.json(movie)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
 })
 
-// gets data about a single genre
-app.get('/movies/:genre', (req, res) => {
-  res.json(movies.find((movie) => {
-    return movie.genre === req.params.genre
-  }))
+// gets data about all genres
+app.get('/genres', (req, res) => {
+  Genres.find()
+  .then((genres) => {
+    res.status(200).json(genres)
+  })
+  .catch((err) => {
+    console.error(err)
+    res.status(500).send('Error: ' + err)
+  })
 })
 
 // gets data about a director
