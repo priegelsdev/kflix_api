@@ -19,10 +19,10 @@ const Directors = Models.Director
 const Genres = Models.Genre
 
 // PROCESS ENV to hide credentials
-/* mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true})
- */
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true})
 
+/* mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
+ */
 // set express to variable app
 const app = express()
 // create write stream (in append mode)
