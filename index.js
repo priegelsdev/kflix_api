@@ -24,9 +24,9 @@ const Directors = Models.Director
 const Genres = Models.Genre
 
 // PROCESS ENV to hide credentials
-/* mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true}) */
+mongoose.connect('mongodb://localhost:27017/K-Flix', { useNewUrlParser: true, useUnifiedTopology: true})
 
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
+/* mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true}) */
 
 // set express to variable app
 const app = express()
@@ -182,7 +182,16 @@ app.get('/', (req, res) => {
 
 // gets list of data about ALL movies
 app.get('/movies', (req, res) => {
-  res.json(movies)
+  Movies.find()
+    .populate('Director')
+    .populate('Genre')
+    .then((movies) => {
+      res.status(200).json(movies)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
 })
 
 // gets data about a single movie, by title
