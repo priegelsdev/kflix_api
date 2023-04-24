@@ -19,10 +19,10 @@ const Directors = Models.Director
 const Genres = Models.Genre
 
 // PROCESS ENV to hide credentials
-mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true})
+/* mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true}) */
 
-/* mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
- */
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
+
 // set express to variable app
 const app = express()
 // create write stream (in append mode)
@@ -35,6 +35,10 @@ app.use(express.static('public'))
   // no need for console.logging in each request
 app.use(morgan('combined', {stream: accessLogStream}))
 app.use(bodyParser.json())
+
+// including CORS right before auth
+const cors = require('cors')
+app.use(cors())
 
 // calling passport and authorization
 let auth = require('./auth')(app) // app argument so express is available in auth file as well
