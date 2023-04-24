@@ -18,7 +18,10 @@ const Users = Models.User
 const Directors = Models.Director
 const Genres = Models.Genre
 
-mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true})
+// PROCESS ENV to hide credentials
+/* mongoose.connect('mongodb://localhost:27017/KFlixDB', { useNewUrlParser: true, useUnifiedTopology: true})
+ */
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 
 // set express to variable app
 const app = express()
