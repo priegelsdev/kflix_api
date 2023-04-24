@@ -43,3 +43,6 @@
 ::ffff:127.0.0.1 - - [24/Apr/2023:13:40:43 +0000] "GET /users HTTP/1.1" 404 144 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0"
 ::ffff:127.0.0.1 - - [24/Apr/2023:13:40:53 +0000] "GET /users HTTP/1.1" 200 1101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0"
 ::ffff:127.0.0.1 - - [24/Apr/2023:13:41:03 +0000] "GET /users/User2 HTTP/1.1" 200 182 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0"
+- - - [24/Apr/2023:13:55:15 +0000] "GET /favicon.ico HTTP/1.1" - - "http://localhost:8080/documentation.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0"
+::ffff:127.0.0.1 - - [24/Apr/2023:13:55:19 +0000] "GET / HTTP/1.1" 200 25 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0"
+::ffff:127.0.0.1 - - [24/Apr/2023:13:55:22 +0000] "GET /movies HTTP/1.1" 200 7117 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0"

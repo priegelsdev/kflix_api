@@ -24,9 +24,9 @@ const Directors = Models.Director
 const Genres = Models.Genre
 
 // PROCESS ENV to hide credentials
-mongoose.connect('mongodb://localhost:27017/K-Flix', { useNewUrlParser: true, useUnifiedTopology: true})
+/* mongoose.connect('mongodb://localhost:27017/K-Flix', { useNewUrlParser: true, useUnifiedTopology: true}) */
 
-/* mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true}) */
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true})
 
 // set express to variable app
 const app = express()
@@ -60,108 +60,6 @@ let users = [
     email: "user1@gmail.com"
   }
 ]
-
-let movies = [
-  {
-    'id': '1',
-    'title': 'Oldboy',
-    'director': 'Park Chan-Wook',
-    'genre': [
-      'Thriller',
-      'Drama'
-    ],
-    'release_date': '2003'
-  },
-  {
-    'id': '2',
-    'title': 'Parasite',
-    'director': 'Bong Joon-ho',
-    'genre': [
-      'Drama',
-      'Comedy',
-      'Thriller'
-    ],
-    'release_date': '2019'
-  },
-  {
-    'id': '3',
-    'title': 'The Handmaiden',
-    'director': 'Park Chan-Wook',
-    'genre': [
-      'Romance',
-      'Drama'
-    ],
-    'release_date': '2016'
-  },
-  {
-    'id': '4',
-    'title': 'I Saw the Devil',
-    'director': 'Kim Jee-woon',
-    'genre': [
-      'Thriller',
-      'Action'
-    ],
-    'release_date': '2010'
-  },
-  {
-    'id': '5',
-    'title': 'Mother',
-    'director': 'Bong Joon-ho',
-    'genre': 'Mystery',
-    'release_date': '2009'
-  },
-  {
-    'id': '6',
-    'title': 'Joint Security Area',
-    'director': 'Park Chan-Wook',
-    'genre': [
-      'Mystery',
-      'Drama'
-    ],
-    'release_date': '2010'
-  },
-  {
-    'id': '7',
-    'title': 'A Bittersweet Life',
-    'director': 'Kim Jee-woon',
-    'genre': [
-      'Action',
-      'Drama'
-    ],
-    'release_date': '2005'
-  },
-  {
-    'id': '8',
-    'title': 'Memories of Murder',
-    'director': 'Bong Joon-ho',
-    'genre': [
-      'Crime',
-      'Thriller'
-    ],
-    'release_date': '2003'
-  },
-  {
-   'id': '9',
-   'title': 'The Chaser',
-   'director': 'Na Hong-jin',
-   'genre': [
-     'Thriller',
-     'Action'
-   ],
-   'release_date': '2008'
-  },
-  {
-    'id': '10',
-    'title': 'A Tale of Two Sisters',
-    'director': 'Kim Jee-woon',
-    'genre': [
-      'Horror',
-      'Thriller'
-    ],
-    'release_date': '2003'
-  }
-];
-
 
 /* 
   GET requests 
@@ -257,10 +155,27 @@ app.get('/genres/:Name', (req, res) => {
 })
 
 // gets data about a director
-app.get('/movies/:director', (req, res) => {
-  res.json(movies.find((movie) => {
-    return movie.director === req.params.director
-  }))
+app.get('/directors', (req, res) => {
+  Directors.find()
+    .then((directors) => {
+      res.status(200).json(directors)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
+})
+
+// gets data about a single director by name
+app.get('/directors/:Name', (req, res) => {
+  Directors.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
 })
 
 /* 
