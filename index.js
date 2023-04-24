@@ -244,6 +244,18 @@ app.get('/genres', (req, res) => {
   })
 })
 
+// gets data about a single genre by name
+app.get('/genres/:Name', (req, res) => {
+  Genres.findOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).send('Error: ' + err)
+    })
+})
+
 // gets data about a director
 app.get('/movies/:director', (req, res) => {
   res.json(movies.find((movie) => {
